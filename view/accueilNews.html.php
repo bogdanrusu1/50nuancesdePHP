@@ -78,6 +78,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             <?php
             // pas encore d'articles, la variable contient false
             if (!$recup_accueil) {
@@ -91,10 +92,17 @@ if(!$recup_accueil){
                 <?php
 }else{foreach ($recup_accueil as $item)
 
+=======
+            <?php
+            // pas encore d'articles, la variable contient false
+            if (!$recup_accueil) {
+
+>>>>>>> 0074fa90c0ad6e91d51f5df73ffec2b884824328
                 ?>
                 <h3 class="text-success">Pas encore de nouvelles</h3>
                 <?php
             } else {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
                 foreach ($recup_accueil as $item) {
@@ -115,6 +123,26 @@ if(!$recup_accueil){
                         <p>Texte coupé à 350 caractères (! attention à la césure du texte)</p>
                         <p><a href="authorNews.html.php">Auteur (cliquable -> détail auteur)</a></p>
                         <p>Date</p>
+=======
+                foreach ($recup_accueil as $item) {
+                    ?>
+                    <div class="post-preview">
+                        <h2 class="post-title">
+                            <?=$item['thetitle']?>
+                        </h2>
+                        <?php
+                        $idcateg = explode(",",$item['idcategorie']);
+                        $titlecateg = explode("|||",$item['titlecateg']);
+
+                        ?>
+                        <p><a href="?idcateg=">RUBRIQUES</a></p>
+                        <?php
+
+                        ?>
+                        <p><?=$item['thetext']?> ... </p>
+                        <p>Ecrit par <?=$item['thename']?> | Profil: <a href="?idauthor=<?=$item['iduser']?>"><?=$item['thelogin']?></a></p>
+                        <p>Date : <?= $item['thedate'] ?> </p>
+>>>>>>> 0074fa90c0ad6e91d51f5df73ffec2b884824328
 
 
                     </div>
