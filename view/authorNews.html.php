@@ -76,7 +76,7 @@
             <div class="post-preview">
 
                     <h4 class="post-title" style="center">
-                        Nom Prenom:
+                        Nom Prenom:<?=$item?>
                     </h4>
 
 
