@@ -77,53 +77,14 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 
 
-
             <?php
             // pas encore d'articles, la variable contient false
             if (!$recup_accueil) {
-
-                <?php
-// pas encore d'articles, la variable contient false
-if(!$recup_accueil){
-    ?>
-    <h3 class="text-success">Pas encore de nouvelles</h3>
-                <?php
-}else{foreach ($recup_accueil as $item)
-
-
-            <?php
-            // pas encore d'articles, la variable contient false
-            if (!$recup_accueil) {
-
-
 
                 ?>
                 <h3 class="text-success">Pas encore de nouvelles</h3>
                 <?php
             } else {
-
-
-
-                foreach ($recup_accueil as $item) {
-                  ?>
-                    <p><a href="rubNews.html.php">Rubriques de la nouvelle (cliquables -> rubriques)</a></p>
-                    <p>Texte coupé à 350 caractères (! attention à la césure du texte)</p>
-    <p><a href="authorNews.html.php"><?=$item['thetitle']?></a></p>
-        <p>Date : <?=$item['thedate']?> </p>
-
-
-                    ?>
-                    <div class="post-preview">
-                        <h2 class="post-title">
-                            <?= $item['thetitle'] ?>
-                        </h2>
-
-
-                        <p><a href="#">Rubriques de la nouvelle (cliquables -> rubriques)</a></p>
-                        <p>Texte coupé à 350 caractères (! attention à la césure du texte)</p>
-                        <p><a href="authorNews.html.php">Auteur (cliquable -> détail auteur)</a></p>
-                        <p>Date</p>
-
                 foreach ($recup_accueil as $item) {
                     ?>
                     <div class="post-preview">
@@ -197,8 +158,3 @@ if(!$recup_accueil){
 <script src="view/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
