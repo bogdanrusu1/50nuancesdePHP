@@ -49,7 +49,7 @@
                     <a class="nav-link" href="post.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">connexion</a>
+                    <a class="nav-link" href="contact.html">Connexion</a>
                 </li>
             </ul>
         </div>
@@ -77,15 +77,33 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 
 
+<<<<<<< HEAD
             <?php
             // pas encore d'articles, la variable contient false
             if (!$recup_accueil) {
+=======
+
+                <?php
+// pas encore d'articles, la variable contient false
+if(!$recup_accueil){
+    ?>
+    <h3 class="text-success">Pas encore de nouvelles</h3>
+                <?php
+}else{foreach ($recup_accueil as $item)
+
                 ?>
                 <h3 class="text-success">Pas encore de nouvelles</h3>
                 <?php
             } else {
 
+<<<<<<< HEAD
                 foreach ($recup_accueil as $item) {
+=======
+                    <p><a href="rubNews.html.php">Rubriques de la nouvelle (cliquables -> rubriques)</a></p>
+                    <p>Texte coupé à 350 caractères (! attention à la césure du texte)</p>
+    <p><a href="authorNews.html.php"><?=$item['thetitle']?></a></p>
+        <p>Date : <?=$item['thedate']?> </p>
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 
                     ?>
                     <div class="post-preview">

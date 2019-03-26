@@ -3,11 +3,20 @@ SELECT * FROM article;
 SELECT * FROM categorie;
 SELECT * FROM permission;
 SELECT * FROM user;
+<<<<<<< HEAD
+=======
+SELECT * FROM user WHERE iduser=2;
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 SELECT * FROM images;
 /* table de jointure many2many */
 SELECT * FROM categorie_has_article;
 
+<<<<<<< HEAD
 /* one to one en partant de user, normalement un user 
+=======
+/* 
+one to one en partant de user, normalement un user 
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 doit avoir une image unique
 Jointure interne : INNER JOIN
   */
@@ -154,7 +163,12 @@ le group_concat()
 */
 SELECT a.thetitle, u.thename, 
 	   p.thename AS qualite, 
+<<<<<<< HEAD
        GROUP_CONCAT(c.thetitle SEPARATOR'---') AS categorieName 
+=======
+       GROUP_CONCAT(c.idcategorie) AS categorieId,
+       GROUP_CONCAT(c.thetitle SEPARATOR'-|-|-') AS categorieName 
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 	FROM article a
     
     LEFT JOIN categorie_has_article h 
@@ -168,4 +182,196 @@ SELECT a.thetitle, u.thename,
 		ON u.permission_idpermission = p.idpermission
 		
 	GROUP BY a.idarticle
+<<<<<<< HEAD
     ;     
+=======
+    ; 
+    
+/*
+On veut ordonner les catégories par ordre alphabétique ascendant, si on le fait
+seulement pour categorieName, les categorieId ne correspondent plus et on
+a un gros problème de structure et d'affichage.
+On doit appliquer le order by sur tous les champs venant de la même table
+
+*/
+SELECT a.thetitle, u.thename, 
+	   p.thename AS qualite, 
+       GROUP_CONCAT(c.idcategorie ORDER BY c.thetitle ASC ) AS categorieId,
+       GROUP_CONCAT(c.thetitle ORDER BY c.thetitle ASC SEPARATOR'-|-|-' ) AS categorieName 
+	FROM article a
+    
+    LEFT JOIN categorie_has_article h 
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN categorie c 
+		ON h.categorie_idcategorie = c.idcategorie
+    
+	INNER JOIN user u 
+		ON a.user_iduser = u.iduser
+    INNER JOIN permission p
+		ON u.permission_idpermission = p.idpermission
+		
+	GROUP BY a.idarticle
+    ; 
+    
+ /*
+On veut garder les articles qui ont la syllabe "le" dans leur titre ou leur texte
+*/
+SELECT a.thetitle, u.thename, 
+	   p.thename AS qualite, 
+       GROUP_CONCAT(c.idcategorie ORDER BY c.thetitle ASC ) AS categorieId,
+       GROUP_CONCAT(c.thetitle ORDER BY c.thetitle ASC SEPARATOR'-|-|-' ) AS categorieName 
+	FROM article a
+    
+    LEFT JOIN categorie_has_article h 
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN categorie c 
+		ON h.categorie_idcategorie = c.idcategorie
+    
+	INNER JOIN user u 
+		ON a.user_iduser = u.iduser
+    INNER JOIN permission p
+		ON u.permission_idpermission = p.idpermission
+        
+	WHERE a.thetitle LIKE '%le%' OR a.thetext LIKE '%le%'
+	
+	GROUP BY a.idarticle
+    ;   
+    
+ /*
+On veut également obtenir 350 caractères du texte de chaque article, on peut
+utiliser left(nomDeChamps,350) ou substr(a.thetext,1,350) ou substring etc...
+*/
+SELECT a.thetitle, substr(a.thetext,3,350) AS thetext,
+	   u.thename, 
+	   p.thename AS qualite, 
+       GROUP_CONCAT(c.idcategorie ORDER BY c.thetitle ASC ) AS categorieId,
+       GROUP_CONCAT(c.thetitle ORDER BY c.thetitle ASC SEPARATOR'-|-|-' ) AS categorieName 
+	FROM article a
+    
+    LEFT JOIN categorie_has_article h 
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN categorie c 
+		ON h.categorie_idcategorie = c.idcategorie
+    
+	INNER JOIN user u 
+		ON a.user_iduser = u.iduser
+    INNER JOIN permission p
+		ON u.permission_idpermission = p.idpermission
+        
+	WHERE a.thetitle LIKE '%le%' OR a.thetext LIKE '%le%'
+	
+	GROUP BY a.idarticle
+    ; 
+    
+/*
+On veut également récupérer l'id de l'article et l'id de son auteur
+*/
+SELECT a.idarticle, a.thetitle, substr(a.thetext,3,350) AS thetext,
+	   u.iduser, u.thename, 
+	   p.thename AS qualite, 
+       GROUP_CONCAT(c.idcategorie ORDER BY c.thetitle ASC ) AS categorieId,
+       GROUP_CONCAT(c.thetitle ORDER BY c.thetitle ASC SEPARATOR'-|-|-' ) AS categorieName 
+	FROM article a
+    
+    LEFT JOIN categorie_has_article h 
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN categorie c 
+		ON h.categorie_idcategorie = c.idcategorie
+    
+	INNER JOIN user u 
+		ON a.user_iduser = u.iduser
+    INNER JOIN permission p
+		ON u.permission_idpermission = p.idpermission
+        
+	WHERE a.thetitle LIKE '%le%' OR a.thetext LIKE '%le%'
+	
+	GROUP BY a.idarticle
+    ;    
+    
+/*
+On veut également récupérer les images des utilisateurs, mais on garde les articles
+actuels, même si les auteurs n'ont pas d'image
+*/
+SELECT a.idarticle, a.thetitle, substr(a.thetext,1,350) AS thetext,
+	   u.iduser, u.thename, 
+       i.theurl,
+	   p.thename AS qualite, 
+       GROUP_CONCAT(c.idcategorie ORDER BY c.thetitle ASC ) AS categorieId,
+       GROUP_CONCAT(c.thetitle ORDER BY c.thetitle ASC SEPARATOR'-|-|-' ) AS categorieName 
+	FROM article a
+    
+    LEFT JOIN categorie_has_article h 
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN categorie c 
+		ON h.categorie_idcategorie = c.idcategorie
+    
+	INNER JOIN user u 
+		ON a.user_iduser = u.iduser
+    INNER JOIN permission p
+		ON u.permission_idpermission = p.idpermission
+    LEFT JOIN images i    
+		ON i.user_iduser = u.iduser
+        
+	WHERE a.thetitle LIKE '%le%' OR a.thetext LIKE '%le%'
+	
+	GROUP BY a.idarticle
+    ;   
+
+/*
+On veut séléctioner le 'thelogin' de tous les 'user', en sélectionnant
+aussi 'theurl' de la table 'images' si il y en a une, en sélectionnant
+aussi 'thename' de la table 'permission'.
+*/
+SELECT u.thelogin, i.theurl, p.thename
+	FROM user u 
+    LEFT JOIN images i 
+		ON u.iduser = i.user_iduser
+    INNER JOIN permission p 
+		ON p.idpermission = u.permission_idpermission;
+
+
+/*
+On veut séléctioner le 'thelogin' de tous les 'user', en sélectionnant
+aussi 'theurl' de la table 'images' si il y en a une, en sélectionnant
+aussi 'thename' de la table 'permission'.
+
+On va rajouter le champs 'idarticle' et 'thetitle' pour chaque auteur, 
+en gardant une ligne par 'user', on garde l''user' même si il n'a pas d'article
+
+*/
+SELECT u.thelogin, i.theurl, p.thename,
+	GROUP_CONCAT(a.idarticle) AS idarticle, GROUP_CONCAT(a.thetitle SEPARATOR'|||') AS thetitle
+	FROM user u 
+    LEFT JOIN images i 
+		ON u.iduser = i.user_iduser
+    INNER JOIN permission p 
+		ON p.idpermission = u.permission_idpermission
+    LEFT JOIN article a 
+		ON a.user_iduser = u.iduser
+    GROUP BY u.iduser    
+        ;
+/*
+Jointure affichant toutes les catégories, avec toutes les tables
+*/
+SELECT categorie.idcategorie,categorie.thetitle, 
+	   GROUP_CONCAT(article.idarticle) AS idarticle, 
+       GROUP_CONCAT(article.thetitle SEPARATOR '|||') AS articleTitle,
+       GROUP_CONCAT(user.iduser) AS iduser, GROUP_CONCAT(user.thelogin SEPARATOR'|||') AS thelogin,
+       GROUP_CONCAT(permission.idpermission) AS idpermission, GROUP_CONCAT(permission.thename SEPARATOR'|||') AS thenamePerm,
+       GROUP_CONCAT(images.theurl SEPARATOR'|||') AS theurl
+       
+FROM categorie
+	LEFT JOIN categorie_has_article
+		ON categorie.idcategorie = categorie_has_article.categorie_idcategorie
+    LEFT JOIN article
+		ON article.idarticle = categorie_has_article.article_idarticle
+    LEFT JOIN user    
+		ON user.iduser = article.user_iduser
+    LEFT JOIN permission
+		ON user.permission_idpermission = permission.idpermission
+    LEFT JOIN images
+		ON user.iduser = images.user_iduser
+GROUP BY categorie.idcategorie        
+    ;
+    
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd

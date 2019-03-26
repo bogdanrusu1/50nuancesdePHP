@@ -24,13 +24,21 @@ SELECT a.idarticle, a.thetitle, left(a.thetext,350) AS thetext, a.thedate,
 
 # articles par catégorie fini
 
+<<<<<<< HEAD
 SELECT  u.thename,a.thetitle, a.thetext, a.thedate 
+=======
+SELECT  u.iduser,u.thename,a.thetitle, a.thetext, a.thedate 
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 	FROM article a
 	INNER JOIN categorie_has_article h
         ON h.article_idarticle = a.idarticle
 	INNER JOIN user u 
 		on u.iduser = a.user_iduser
+<<<<<<< HEAD
    WHERE h.categorie_idcategorie = 3;
+=======
+   WHERE h.categorie_idcategorie = 1;
+>>>>>>> 054bf006bd8d4d455b073aec9e27a097e767a3fd
 
 # articles par user - a finir
 
